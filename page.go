@@ -10,11 +10,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/go-rod/rod/lib/cdp"
-	"github.com/go-rod/rod/lib/devices"
-	"github.com/go-rod/rod/lib/js"
-	"github.com/go-rod/rod/lib/proto"
-	"github.com/go-rod/rod/lib/utils"
+	"github.com/apedem/rod/lib/cdp"
+	"github.com/apedem/rod/lib/devices"
+	"github.com/apedem/rod/lib/js"
+	"github.com/apedem/rod/lib/proto"
+	"github.com/apedem/rod/lib/utils"
 	"github.com/ysmood/goob"
 	"github.com/ysmood/gson"
 )

@@ -5,7 +5,7 @@ import (
 	"log"
 	"os/exec"
 
-	"github.com/go-rod/rod/lib/utils"
+	"github.com/apedem/rod/lib/utils"
 )
 
 func main() {

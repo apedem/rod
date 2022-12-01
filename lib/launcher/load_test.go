@@ -6,10 +6,10 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/go-rod/rod"
-	"github.com/go-rod/rod/lib/cdp"
-	"github.com/go-rod/rod/lib/launcher"
-	"github.com/go-rod/rod/lib/utils"
+	"github.com/apedem/rod"
+	"github.com/apedem/rod/lib/cdp"
+	"github.com/apedem/rod/lib/launcher"
+	"github.com/apedem/rod/lib/utils"
 	"github.com/ysmood/got"
 )
 

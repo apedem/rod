@@ -4,8 +4,8 @@ package main
 import (
 	"io/ioutil"
 
-	"github.com/go-rod/rod"
-	"github.com/go-rod/rod/lib/proto"
+	"github.com/apedem/rod"
+	"github.com/apedem/rod/lib/proto"
 	"github.com/ysmood/gson"
 )
 

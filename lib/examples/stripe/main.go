@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/go-rod/rod"
+	"github.com/apedem/rod"
 	"github.com/ysmood/gson"
 )
 

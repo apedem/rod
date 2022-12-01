@@ -10,8 +10,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/go-rod/rod"
-	"github.com/go-rod/rod/lib/proto"
+	"github.com/apedem/rod"
+	"github.com/apedem/rod/lib/proto"
 )
 
 func main() {

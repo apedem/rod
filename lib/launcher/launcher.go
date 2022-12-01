@@ -14,9 +14,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/go-rod/rod/lib/defaults"
-	"github.com/go-rod/rod/lib/launcher/flags"
-	"github.com/go-rod/rod/lib/utils"
+	"github.com/apedem/rod/lib/defaults"
+	"github.com/apedem/rod/lib/launcher/flags"
+	"github.com/apedem/rod/lib/utils"
 	"github.com/ysmood/leakless"
 )
 

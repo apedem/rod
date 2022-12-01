@@ -4,8 +4,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/go-rod/rod"
-	"github.com/go-rod/rod/lib/launcher"
+	"github.com/apedem/rod"
+	"github.com/apedem/rod/lib/launcher"
 )
 
 // To manually launch a browser

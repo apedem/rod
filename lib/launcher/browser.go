@@ -17,8 +17,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/go-rod/rod/lib/defaults"
-	"github.com/go-rod/rod/lib/utils"
+	"github.com/apedem/rod/lib/defaults"
+	"github.com/apedem/rod/lib/utils"
 	"github.com/ysmood/leakless"
 )
 

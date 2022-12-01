@@ -13,7 +13,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/go-rod/rod/lib/utils"
+	"github.com/apedem/rod/lib/utils"
 )
 
 var inContainer = utils.InContainer
