@@ -7,11 +7,11 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"sort"
+	"strconv"
 	"strings"
 
 	"github.com/apedem/rod/lib/defaults"
@@ -112,7 +112,7 @@ func New() *Launcher {
 		exit:      make(chan struct{}),
 		browser:   NewBrowser(),
 		parser:    NewURLParser(),
-		logger:    ioutil.Discard,
+		logger:    io.Discard,
 	}
 }
 
@@ -134,7 +134,7 @@ func NewUserMode() *Launcher {
 		browser: NewBrowser(),
 		exit:    make(chan struct{}),
 		parser:  NewURLParser(),
-		logger:  ioutil.Discard,
+		logger:  io.Discard,
 	}
 }
 
@@ -370,6 +370,19 @@ func (l *Launcher) MustLaunch() string {
 	return u
 }
 
+func headfulDebugTunnel(port string) func() {
+	num, _ := strconv.ParseInt(port, 10, 32)
+	outside := strconv.FormatInt(num, 10)
+	proxy := exec.Command("/usr/bin/socat", fmt.Sprintf("tcp-listen:%v,reuseaddr,fork", outside), fmt.Sprintf("tcp:localhost:%v", port))
+	err := proxy.Start()
+	if err != nil {
+		return func() {}
+	}
+	return func() {
+		proxy.Process.Kill()
+	}
+}
+
 // Launch a standalone temp browser instance and returns the debug url.
 // bin and profileDir are optional, set them to empty to use the default values.
 // If you want to reuse sessions, such as cookies, set the UserDataDir to the same location.
@@ -383,6 +396,12 @@ func (l *Launcher) Launch() (string, error) {
 
 	var ll *leakless.Launcher
 	var cmd *exec.Cmd
+	killTunnel := func() {}
+
+	// headful chrome in docker is not exposed to host
+	if utils.InContainer && l.Has(flags.RemoteDebuggingPort) && !l.Has(flags.Headless) {
+		killTunnel = headfulDebugTunnel(l.Get(flags.RemoteDebuggingPort))
+	}
 
 	if l.Has(flags.Leakless) && leakless.Support() {
 		ll = leakless.New()
@@ -391,6 +410,7 @@ func (l *Launcher) Launch() (string, error) {
 		port := l.Get(flags.RemoteDebuggingPort)
 		u, err := ResolveURL(port)
 		if err == nil {
+			// do not launch a new browser if debug url is already active
 			return u, nil
 		}
 		cmd = exec.Command(bin, l.FormatArgs()...)
@@ -414,6 +434,7 @@ func (l *Launcher) Launch() (string, error) {
 
 	go func() {
 		_ = cmd.Wait()
+		killTunnel()
 		close(l.exit)
 	}()
 
