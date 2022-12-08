@@ -89,6 +89,9 @@ func New() *Launcher {
 		"force-color-profile":                                {"srgb"},
 		"metrics-recording-only":                             nil,
 		"use-mock-keychain":                                  nil,
+
+		// stops navigator.driver from returning true when debug port is enabled
+		"disable-blink-features": {"AutomationControlled"},
 	}
 
 	if defaults.Show {
