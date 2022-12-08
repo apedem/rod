@@ -372,10 +372,11 @@ func (l *Launcher) MustLaunch() string {
 
 func headfulDebugTunnel(port string) func() {
 	num, _ := strconv.ParseInt(port, 10, 32)
-	outside := strconv.FormatInt(num, 10)
+	outside := strconv.FormatInt(num+1, 10)
 	proxy := exec.Command("/usr/bin/socat", fmt.Sprintf("tcp-listen:%v,reuseaddr,fork", outside), fmt.Sprintf("tcp:localhost:%v", port))
 	err := proxy.Start()
 	if err != nil {
+		fmt.Println(err.Error())
 		return func() {}
 	}
 	return func() {
