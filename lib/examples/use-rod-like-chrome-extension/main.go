@@ -4,7 +4,7 @@ package main
 import (
 	"encoding/base64"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 
@@ -22,7 +22,7 @@ func main() {
 	// Launches a new browser with the "new user mode" option, and returns the URL to control that browser.
 	wsURL := launcher.NewUserMode().MustLaunch()
 
-	browser := rod.New().ControlURL(wsURL).MustConnect().NoDefaultDevice()
+	browser := rod.New().ControlURL(wsURL).MustConnect()
 
 	// Run a extension. Here we created a link previewer extension as an example.
 	// With this extension, whenever you hover on a link a preview of the linked page will popup.
@@ -85,7 +85,7 @@ func get(u string) string {
 	res, err := http.Get(u)
 	utils.E(err)
 	defer func() { _ = res.Body.Close() }()
-	b, err := ioutil.ReadAll(res.Body)
+	b, err := io.ReadAll(res.Body)
 	utils.E(err)
 	return string(b)
 }

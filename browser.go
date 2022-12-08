@@ -60,8 +60,6 @@ type Browser struct {
 }
 
 // New creates a controller.
-// DefaultDevice to emulate is set to devices.LaptopWithMDPIScreen.Landscape(), it can make the actual view area
-// smaller than the browser window on headful mode, you can use NoDefaultDevice to disable it.
 func New() *Browser {
 	return (&Browser{
 		ctx:           context.Background(),
@@ -71,7 +69,7 @@ func New() *Browser {
 		trace:         defaults.Trace,
 		monitor:       defaults.Monitor,
 		logger:        DefaultLogger,
-		defaultDevice: devices.LaptopWithMDPIScreen.Landscape(),
+		defaultDevice: devices.Clear,
 		targetsLock:   &sync.Mutex{},
 		states:        &sync.Map{},
 	}).WithPanic(utils.Panic)
@@ -126,17 +124,10 @@ func (b *Browser) Client(c CDPClient) *Browser {
 	return b
 }
 
-// DefaultDevice sets the default device for new page to emulate in the future.
-// Default is devices.LaptopWithMDPIScreen .
-// Set it to devices.Clear to disable it.
-func (b *Browser) DefaultDevice(d devices.Device) *Browser {
+// EmulateDevice sets the default device to emulate
+func (b *Browser) EmulateDevice(d devices.Device) *Browser {
 	b.defaultDevice = d
 	return b
-}
-
-// NoDefaultDevice is the same as DefaultDevice(devices.Clear)
-func (b *Browser) NoDefaultDevice() *Browser {
-	return b.DefaultDevice(devices.Clear)
 }
 
 // Connect to the browser and start to control it.

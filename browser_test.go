@@ -55,12 +55,12 @@ func TestDefaultDevice(t *testing.T) {
 
 	// TODO: https://github.com/golang/go/issues/51459
 	b := *g.browser
-	b.DefaultDevice(devices.IPhoneX)
+	b.EmulateDevice(devices.IPhoneX)
 
 	b.MustPage(s.URL("/t")).MustClose()
 	g.Eq(ua, devices.IPhoneX.UserAgentEmulation().UserAgent)
 
-	b.NoDefaultDevice()
+	b.EmulateDevice(devices.Clear)
 	b.MustPage(s.URL("/t")).MustClose()
 	g.Neq(ua, devices.IPhoneX.UserAgentEmulation().UserAgent)
 }
