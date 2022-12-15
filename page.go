@@ -7,6 +7,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"math/rand"
 	"sync"
 	"time"
 
@@ -794,4 +795,10 @@ func (p *Page) initEvents() {
 			p.event.Publish(msg)
 		}
 	}()
+}
+
+func (p *Page) Pause(base, variance time.Duration) *Page {
+	extra := time.Second * time.Duration(rand.Intn(int(variance.Seconds())))
+	time.Sleep(base + extra)
+	return p
 }
