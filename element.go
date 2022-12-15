@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"math/rand"
 	"reflect"
 	"strings"
 	"time"
@@ -708,4 +709,10 @@ func (el *Element) GetXPath(optimized bool) (string, error) {
 		return "", err
 	}
 	return str.Value.String(), nil
+}
+
+func (el *Element) Pause(base, variance time.Duration) *Element {
+	extra := time.Second * time.Duration(rand.Intn(int(variance.Seconds())))
+	time.Sleep(base + extra)
+	return el
 }
