@@ -88,7 +88,7 @@ func New() *Launcher {
 		// "enable-features":                                    {"NetworkService", "NetworkServiceInProcess"},
 		// "force-color-profile":                                {"srgb"},
 		// "metrics-recording-only":                             nil,
-		// "use-mock-keychain": nil,
+		"use-mock-keychain": nil,
 
 		// stops navigator.driver from returning true when debug port is enabled
 		"disable-blink-features": {"AutomationControlled"},
