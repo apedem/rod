@@ -46,16 +46,16 @@ type Launcher struct {
 // Leakless will be enabled by default.
 // UserDataDir will use OS tmp dir by default, this folder will usually be cleaned up by the OS after reboot.
 func New() *Launcher {
-	// dir := defaults.Dir
-	// if dir == "" {
-	// 	dir = filepath.Join(DefaultUserDataDirPrefix, utils.RandString(8))
-	// }
+	dir := defaults.Dir
+	if dir == "" {
+		dir = filepath.Join(DefaultUserDataDirPrefix, utils.RandString(8))
+	}
 
 	defaultFlags := map[flags.Flag][]string{
 		flags.Bin:      {defaults.Bin},
 		flags.Leakless: nil,
 
-		// flags.UserDataDir: {dir},
+		flags.UserDataDir: {dir},
 
 		// use random port by default
 		flags.RemoteDebuggingPort: {defaults.Port},
